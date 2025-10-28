@@ -14,7 +14,22 @@
   </head>
   <body>
     <noscript>Enable javascript you moron</noscript>
+    <img src="https://picsum.photos/5000/5000" alt="Massive Blocking Image" style="display: none;" loading="eager" />
     <div id="root"></div>
+    <script>
+  function slowDownCPU() {
+    function fibonacci(n) {
+      if (n <= 1) return n;
+      return fibonacci(n - 1) + fibonacci(n - 2);
+    }
+    const startTime = Date.now();
+    const result = fibonacci(42); 
+    const endTime = Date.now();
+    console.log(`CPU Lag: ${endTime - startTime}ms. Result: ${result}`);
+  }
+
+  slowDownCPU();
+</script>
     <script type="module" src="/src/main.jsx"></script>
   </body>
 </html>

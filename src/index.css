@@ -1,0 +1,242 @@
+/* Basic "heavy" dark mode theme */
+body {
+  background-color: #1a1a1a;
+  color: #f0f0f0;
+  font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto,
+    "Helvetica Neue", Arial, sans-serif;
+  line-height: 1.6;
+  margin: 0;
+  padding: 0;
+}
+
+.App {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  min-height: 100vh;
+}
+
+/* --- Loading Screen Styles --- */
+.loading-container {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  height: 100vh;
+  text-align: center;
+}
+
+.loading-container p {
+  font-size: 1.2rem;
+  /* Pulsing text animation */
+  animation: pulse 2s infinite ease-in-out;
+}
+
+.loading-container p:last-child {
+  font-size: 0.8rem;
+  color: #888;
+  animation-delay: 1s;
+}
+
+/* Simple CSS spinner animation */
+.spinner {
+  border: 8px solid #444;
+  border-top: 8px solid #3498db;
+  border-radius: 50%;
+  width: 60px;
+  height: 60px;
+  animation: spin 1s linear infinite;
+  margin-bottom: 20px;
+}
+
+@keyframes spin {
+  0% {
+    transform: rotate(0deg);
+  }
+  100% {
+    transform: rotate(360deg);
+  }
+}
+
+@keyframes pulse {
+  0% {
+    opacity: 0.5;
+  }
+  50% {
+    opacity: 1;
+  }
+  100% {
+    opacity: 0.5;
+  }
+}
+
+/* --- Content Styles --- */
+.content-container {
+  max-width: 800px;
+  margin: 2rem auto;
+  padding: 2rem;
+  background-color: #242424;
+  border: 1px solid #333;
+  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.5);
+}
+
+/* Fade-in animation for the content after loading */
+.fade-in {
+  animation: fadeInAnimation 1.5s ease-in;
+}
+
+@keyframes fadeInAnimation {
+  from {
+    opacity: 0;
+    transform: translateY(20px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+h1,
+h2,
+h3 {
+  color: #3498db;
+  border-bottom: 2px solid #3498db;
+  padding-bottom: 5px;
+}
+
+p {
+  color: #ccc;
+}
+
+em {
+  color: #e67e22;
+  font-style: italic;
+}
+
+ul {
+  list-style: square;
+  background: #333;
+  padding: 20px;
+  border-radius: 5px;
+}
+
+li {
+  margin-bottom: 10px;
+}
+
+hr {
+  border: 0;
+  height: 1px;
+  background-image: linear-gradient(
+    to right,
+    rgba(0, 0, 0, 0),
+    rgba(255, 255, 255, 0.2),
+    rgba(0, 0, 0, 0)
+  );
+}
+
+blockquote {
+  border-left: 5px solid #3498db;
+  margin: 1.5em 10px;
+  padding: 0.5em 10px;
+  background: #303030;
+  font-style: italic;
+}
+
+blockquote p {
+  color: #eee;
+}
+
+blockquote cite {
+  color: #aaa;
+  display: block;
+  margin-top: 5px;
+}
+
+.lagging-container {
+  opacity: 0; /* Start completely invisible */
+  animation-name: lag-load;
+  animation-duration: 6s; /* Make it take a full 6 seconds to "load" */
+  animation-fill-mode: forwards; /* Crucial: Keeps the final state (opacity: 1) */
+  animation-timing-function: steps(
+    20,
+    end
+  ); /* A jerky, stuttering appearance */
+}
+
+/* --- The Keyframes for the Lagging Effect ---
+
+This animation moves the opacity from 0 (invisible) to 1 (fully visible)
+in 20 distinct, jerky steps over 6 seconds, mimicking a slow connection 
+where chunks of data arrive and render suddenly.
+*/
+@keyframes lag-load {
+  0% {
+    opacity: 0;
+    transform: translateY(10px);
+  }
+  5% {
+    opacity: 0.05;
+  }
+  15% {
+    opacity: 0.1;
+  }
+  20% {
+    opacity: 0.12;
+  }
+  25% {
+    opacity: 0.2;
+    transform: translateY(8px);
+  }
+  30% {
+    opacity: 0.21;
+  }
+  35% {
+    opacity: 0.3;
+  }
+  40% {
+    opacity: 0.35;
+    transform: translateY(5px);
+  }
+  45% {
+    opacity: 0.4;
+  }
+  50% {
+    opacity: 0.5;
+  }
+  55% {
+    opacity: 0.55;
+  }
+  60% {
+    opacity: 0.6;
+    transform: translateY(3px);
+  }
+  70% {
+    opacity: 0.7;
+  }
+  80% {
+    opacity: 0.8;
+  }
+  90% {
+    opacity: 0.9;
+  }
+  100% {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+/* Optional: Add a subtle text effect to look like a delayed rendering */
+.content h2,
+.content ul {
+  /* Delay these elements slightly more to look like they are waiting for resources */
+  animation-name: lag-load;
+  animation-duration: 6s;
+  animation-delay: 0.5s; /* Stagger the content load */
+  animation-fill-mode: forwards;
+  animation-timing-function: steps(
+    10,
+    end
+  ); /* A different step count for variety */
+  opacity: 0; /* Start them invisible too */
+}
